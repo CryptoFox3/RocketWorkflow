@@ -1,0 +1,106 @@
+﻿@model RocketWorkflow.Models.Job
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Job</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Client.ApplicationUserId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Client.ApplicationUserId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.JobName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.JobName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AssignedEmployee)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AssignedEmployee)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CompleteTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CompleteTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Fee)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Fee)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IsComplete)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IsComplete)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IsArchived)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IsArchived)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BillingComplete)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BillingComplete)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SomeProp)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SomeProp)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.JobId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
