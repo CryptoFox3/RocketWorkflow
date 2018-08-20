@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using RocketWorkflow.Models;
 
 namespace RocketWorkflow.Controllers
@@ -15,6 +16,13 @@ namespace RocketWorkflow.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clients
+        public ActionResult ClientPortal()
+        {
+            var userNow = User.Identity.GetUserId();
+            var CurrentUser = db.Clients.Where(c => c.ApplicationUserId == userNow).Single();
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View(db.Clients.ToList());
@@ -34,6 +42,14 @@ namespace RocketWorkflow.Controllers
             }
             return View(client);
         }
+
+        public ActionResult CreateClient()
+        {
+
+            return RedirectToAction("Create");
+        }
+
+
 
         // GET: Clients/Create
         public ActionResult Create()

@@ -15,6 +15,7 @@ namespace RocketWorkflow.Models
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+
         public string UserName { get; set; }
 
 
