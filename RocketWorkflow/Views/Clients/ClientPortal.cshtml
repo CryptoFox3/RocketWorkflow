@@ -1,16 +1,129 @@
-﻿
+﻿@model RocketWorkflow.Models.Client
+
 @{
     ViewBag.Title = "ClientPortal";
 }
 
-<h2>ClientPortal</h2>
+<h2>Client Portal</h2>
 
-@using (Html.BeginForm("Upload", "Upload", FormMethod.Post,
-                                      new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
-    <fieldset>
-        Select a file <input type="file" name="file" />
-        <input type="submit" value="Upload" />
-    </fieldset>
-}
+
+
+    
+<div class="column">
+
+<button class=" btn btn-info float-md-left">
+    @Html.ActionLink("Pay Balance", "Charge")
+</button>
+
+<div class="form-group float-md-right">
+    <div class="input-group mb-2">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile02">
+            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+        </div>
+        <div class="input-group-append">
+            <span class="input-group-text" id="">Upload</span>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+
+    <hr />
+    <h4>Your information:</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.SpouseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpouseId)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HouseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HouseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+
+    </dl>
+</div>
+<button class=" btn btn-default">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) 
+</button>
+

@@ -4,39 +4,37 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrapSlate.css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
 
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Rocket Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">@Html.ActionLink("RocketWorkflow", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-success">
+                        <a class="nav-item">@Html.ActionLink("Client Portal", "ClientPortal", "Clients", new { area = "  " }, new { @class = "navbar-text" })</a>
+                    </button>
+                </li>
+                
+
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
-    </div>
-    </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -44,3 +42,95 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+    @*<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand">@Html.ActionLink("Rocket Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <form class="form-inline">
+                            <button class="btn btn-outline-success" type="button">@Html.ActionLink(" ", "ClientPortal", "Clients")Client Portal</button> </form>
+                    </li>
+
+                    <li class="nav-item active">
+                        <form class="form-inline">
+                            <button class="btn btn-outline-success" type="button">Client Portal @Html.ActionLink(" ", "ClientPortal", "Clients")</button> </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>*@
+
+
+
+    @*<form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+        @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>*@
+
+    @*<div class="container">
+                <a class="navbar-brand" href="/">@Html.ActionLink("Rocket Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</a>
+                <div class="navbar" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto">
+
+                        <li class="nav-item">@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
+                        <li class="nav-item">@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
+                    </ul>
+                        @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>*@
+
+    @*<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+            <div class="container" >
+                <div class="navbar">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Rocket Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand">
+                <div class="navbar" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto">
+                        <li>@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
+                        <li>@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
+                        <li>@Html.ActionLink("Client Portal", "ClientPortal", "Clients")</li>
+                    </ul>
+                </div>
+                </a>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>*@
+

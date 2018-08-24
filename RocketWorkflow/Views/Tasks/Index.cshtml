@@ -1,8 +1,6 @@
-﻿@model IEnumerable<RocketWorkflow.Models.Task>
+﻿
+@model RocketWorkflow.Models.ViewModels.MainViewModel
 
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
@@ -12,48 +10,54 @@
     <title>Index</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AssignedEmployee)
+                @Html.DisplayNameFor(model => model.Task.AssignedEmployee)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DueDate)
+                @Html.DisplayNameFor(model => model.Task.DueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompleteTime)
+                @Html.DisplayNameFor(model => model.Task.CompleteTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsComplete)
+                @Html.DisplayNameFor(model => model.Task.IsComplete)
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedEmployee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompleteTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsComplete)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model.TasksList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedEmployee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompleteTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsComplete)
+                </td>
+                <td>
+                    <hr />
+                    <button class="btn btn-default">
+                        @Html.ActionLink("Create New", "Create")
+                    </button>
+                    <button class=" btn btn-default">
+                        @Html.ActionLink("Create New", "Create")
+                    </button>
+                    <hr />
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

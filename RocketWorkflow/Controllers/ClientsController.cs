@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using RocketWorkflow.Models;
+using Stripe;
 
 namespace RocketWorkflow.Controllers
 {
@@ -16,17 +19,55 @@ namespace RocketWorkflow.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clients
-        public ActionResult ClientPortal()
-        {
-            var userNow = User.Identity.GetUserId();
-            var CurrentUser = db.Clients.Where(c => c.ApplicationUserId == userNow).Single();
-            return View();
-        }
-
         public ActionResult Index()
         {
             return View(db.Clients.ToList());
         }
+        public ActionResult ClientPortal()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Client client = db.Clients.Where(c => c.ApplicationUserId == currentUserId).Single();
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            return View(client);
+        }
+        public ActionResult Charge()
+        {
+            var stripePublishKey = ConfigurationManager.AppSettings["stripePublishableKey"];
+            ViewBag.StripePublishKey = stripePublishKey;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Charge(string stripeEmail, string stripeToken)
+        {
+            var customers = new StripeCustomerService();
+            var charges = new StripeChargeService();
+
+            var customer = customers.Create(new StripeCustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new StripeChargeCreateOptions
+            {
+                Amount = 500,//charge in cents
+                Description = "Sample Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+
+            
+
+            return View();
+        }
+
 
         // GET: Clients/Details/5
         public ActionResult Details(string id)
@@ -62,26 +103,42 @@ namespace RocketWorkflow.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientId,FirstName,LastName,Email,PhoneNumber,BirthDate,SpouseId,HouseNumber,StreetName,City,State,ZipCode")] Client client)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,PhoneNumber,BirthDate,SpouseId,HouseNumber,StreetName,City,State,ZipCode,ApplicationUserId")] Client client)
         {
+
             if (ModelState.IsValid)
             {
+                client.ApplicationUserId = User.Identity.GetUserId();
+                
                 db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                }
+                return RedirectToAction("ClientPortal");
             }
 
             return View(client);
         }
 
         // GET: Clients/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id < 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            Client client = db.Clients.Where(c => c.ClientId.Equals(id)).FirstOrDefault();
             if (client == null)
             {
                 return HttpNotFound();
@@ -106,7 +163,7 @@ namespace RocketWorkflow.Controllers
         }
 
         // GET: Clients/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -123,7 +180,7 @@ namespace RocketWorkflow.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Client client = db.Clients.Find(id);
             db.Clients.Remove(client);

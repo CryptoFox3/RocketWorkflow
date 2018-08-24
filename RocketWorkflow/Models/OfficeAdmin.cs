@@ -9,11 +9,7 @@ namespace RocketWorkflow.Models
 {
     public class OfficeAdmin
     {
-        public string OfficeAdminId { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public int OfficeAdminId { get; set; }
 
         public string UserName { get; set; }
 
@@ -30,6 +26,9 @@ namespace RocketWorkflow.Models
         public string PhoneNumber { get; set; }
         
         public string OfficeUserName { get; set; }
-        
+
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

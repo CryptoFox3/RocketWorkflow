@@ -1,8 +1,5 @@
 ﻿@model RocketWorkflow.Models.Job
 
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
@@ -16,13 +13,13 @@
         <h4>Job</h4>
         <hr />
         <dl class="dl-horizontal">
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Client.ApplicationUserId)
             </dt>
     
             <dd>
                 @Html.DisplayFor(model => model.Client.ApplicationUserId)
-            </dd>
+            </dd>*@
     
             <dt>
                 @Html.DisplayNameFor(model => model.JobName)
@@ -88,14 +85,8 @@
                 @Html.DisplayFor(model => model.BillingComplete)
             </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.SomeProp)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.SomeProp)
-            </dd>
-    
+            
+   
         </dl>
     </div>
     <p>

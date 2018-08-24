@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using RocketWorkflow.Models;
+using RocketWorkflow.Models.ViewModels;
 
 namespace RocketWorkflow.Controllers
 {
@@ -17,11 +19,33 @@ namespace RocketWorkflow.Controllers
         // GET: Tasks
         public ActionResult Index()
         {
-            return View(db.Tasks.ToList());
+            MainViewModel TasksInfo = new MainViewModel()
+            {
+                TasksList = new List<Task>(),
+                Task = new Task()
+            };
+            TasksInfo.TasksList = db.Tasks.ToList();
+            
+            return View(TasksInfo);
+        }
+
+        [ChildActionOnly]
+        public virtual PartialViewResult ProjectTasks(int id)
+        {
+            MainViewModel TasksInfo = new MainViewModel()
+            {
+                TasksList = new List<Task>(),
+                Task = new Task(),
+                Job = new Job()
+            };
+            TasksInfo.TasksList = db.Tasks.Where(t => t.JobId == id).ToList();
+            TasksInfo.Job = db.Jobs.Where(j => j.JobId == id).SingleOrDefault();
+
+            return PartialView("_ProjectTasks", TasksInfo);
         }
 
         // GET: Tasks/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -36,9 +60,11 @@ namespace RocketWorkflow.Controllers
         }
 
         // GET: Tasks/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            Task task = new Task();
+            task.JobId = id;
+            return View(task);
         }
 
         // POST: Tasks/Create
@@ -46,20 +72,23 @@ namespace RocketWorkflow.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskId,AssignedEmployee,DueDate,CompleteTime,IsComplete")] Task task)
+        public ActionResult Create([Bind(Include = "TaskId,JobId,Job,TaskName,AssignedEmployee,DueDate,CompleteTime,IsComplete")] Task task)
         {
             if (ModelState.IsValid)
             {
                 db.Tasks.Add(task);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var id = task.JobId;
+                return RedirectToAction("ProjectView", "Jobs", id);
             }
 
+        
             return View(task);
         }
 
         // GET: Tasks/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -90,7 +119,7 @@ namespace RocketWorkflow.Controllers
         }
 
         // GET: Tasks/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -107,12 +136,12 @@ namespace RocketWorkflow.Controllers
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Task task = db.Tasks.Find(id);
             db.Tasks.Remove(task);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ProjectView", "Jobs", task.JobId);
         }
 
         protected override void Dispose(bool disposing)

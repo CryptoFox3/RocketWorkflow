@@ -1,8 +1,6 @@
 ﻿@model RocketWorkflow.Models.Task
 
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
 
@@ -18,46 +16,42 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TaskName)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.AssignedEmployee)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.AssignedEmployee)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.DueDate)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.DueDate)
             </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CompleteTime)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CompleteTime)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.IsComplete)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.IsComplete)
-            </dd>
-    
+
+
+
         </dl>
     
         @using (Html.BeginForm()) {
             @Html.AntiForgeryToken()
     
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Delete" class="btn btn-info" /> |
             </div>
+                
+            <button type="button" class="btn btn-info">
+                <a class="nav-item">@Html.ActionLink("Back", "ProjectView", "Jobs", new { id = Model.JobId }, null)</a>
+            </button>
         }
     </div>
 </body>

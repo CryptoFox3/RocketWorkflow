@@ -10,15 +10,13 @@ namespace RocketWorkflow.Models
     public class Accountant
     {
         [Key]   
-        public string AccountantId { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public int AccountantId { get; set; }
 
         public string UserName { get; set; }
 
 
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -31,8 +29,12 @@ namespace RocketWorkflow.Models
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
         public string OfficeUserName { get; set; }
-        
+
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 
 }

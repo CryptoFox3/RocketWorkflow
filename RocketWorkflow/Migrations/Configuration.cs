@@ -10,7 +10,6 @@ namespace RocketWorkflow.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "RocketWorkflow.Models.ApplicationDbContext";
         }
 
         protected override void Seed(RocketWorkflow.Models.ApplicationDbContext context)

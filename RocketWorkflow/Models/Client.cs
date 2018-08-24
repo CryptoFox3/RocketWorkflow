@@ -11,11 +11,11 @@ namespace RocketWorkflow.Models
     {
 
         [Key] 
-        public string ClientId { get; set; }
+        public int ClientId { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
+
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -29,10 +29,13 @@ namespace RocketWorkflow.Models
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         public string SpouseId { get; set; }
 
-
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
 
 
